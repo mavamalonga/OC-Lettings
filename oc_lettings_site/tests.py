@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
-    
+
+
 class URLTests(TestCase):
     def test_homepage(self):
         response = self.client.get('/')
