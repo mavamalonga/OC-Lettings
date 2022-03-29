@@ -2,6 +2,7 @@
 import unittest
 from django.test import Client
 
+
 class LettingsTest(unittest.TestCase):
     def test_lettings(self):
         client = Client()

@@ -2,6 +2,7 @@
 import unittest
 from django.test import Client
 
+
 class ProfilesTest(unittest.TestCase):
     def test_profiles(self):
         client = Client()
