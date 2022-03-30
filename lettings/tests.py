@@ -15,3 +15,7 @@ class LettingsTest(unittest.TestCase):
         response = client.get('/lettings/1/')
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'<p>7217 Bedford Street</p>', response.content)
+
+
+if __name__ == "__main__":
+    unittest.main()
