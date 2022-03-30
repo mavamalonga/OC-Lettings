@@ -9,13 +9,13 @@ class LettingsTest(unittest.TestCase):
         client = Client()
         response = client.get(reverse('lettings'))
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Joshua Tree Green Haus', response.content)
+        self.assertIn(b'<title>Lettings</title>', response.content)
 
     def test_letting(self):
         client = Client()
         response = client.get('/lettings/1/')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'<p>7217 Bedford Street</p>', response.content)
+        self.assertIn(b'<title>Joshua Tree Green Haus /w Hot Tub</title>', response.content)
 
 
 if __name__ == "__main__":

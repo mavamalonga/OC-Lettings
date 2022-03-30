@@ -9,7 +9,7 @@ class HomeTest(unittest.TestCase):
         client = Client()
         response = client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Welcome to Holiday Homes', response.content)
+        self.assertIn(b'<title>Holiday Homes</title>', response.content)
 
 
 if __name__ == "__main__":
