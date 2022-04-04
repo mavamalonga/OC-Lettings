@@ -47,6 +47,7 @@ pycodestyle==2.7.0
 pycparser==2.21
 pyflakes==2.3.1
 pyparsing==3.0.6
+pypiwin32==223
 pytest==6.2.5
 pytz==2020.4
 pywin32==303
