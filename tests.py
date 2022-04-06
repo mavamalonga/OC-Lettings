@@ -3,6 +3,7 @@ import unittest
 from django.test import Client
 from django.urls import reverse
 
+
 class HomeTest(unittest.TestCase):
 
     def test_homepage(self):
