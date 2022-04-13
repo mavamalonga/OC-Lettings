@@ -1,4 +1,5 @@
 from pathlib import Path
+import dotenv
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -119,6 +120,6 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Docker Hub env variables
-DOCKER_HUB_USERNAME = os.environ.get("DOCKER_HUB_USERNAME")
-DOCKER_HUB_PASS = os.environ.get("DOCKER_HUB_PASS")
+dotenv.load_dotenv()
+DOCKER_HUB_USERNAME = os.getenv("DOCKER_HUB_USERNAME")
+DOCKER_HUB_PASS = os.getenv("DOCKER_HUB_PASS")

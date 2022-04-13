@@ -12,6 +12,11 @@ jobs:
       - image: cimg/python:3.10.2
     steps:
       - checkout
+      - run:
+          name: Install Python deps in a venv
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
       - python/install-packages:
           pkg-manager: pip
       - run:
@@ -26,18 +31,16 @@ jobs:
       - image: cimg/python:3.10.2
     steps:
       - checkout
-      - setup_remote_docker:
-        version: 19.03.13
-        docker_layer_caching: true
+      - setup_remote_docker
       - run:
-          name: Build and push image Docker
+          name: Build
+          environment:
+            DOCKERHUB_USER: 1498oc
+            DOCKERHUB_PASS: Se3cret!Oc
           command: |
-          docker build --tag $oc_lettings:$CIRCLE_SHA1 .
-          docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASS
-          docker tag oc_lettings:$CIRCLE_SHA1 DOCKER_HUB_USERNAME/oc_lettings:$CIRCLE_SHA1
-          docker push $DOCKER_HUB_USERNAME/oc_lettings:$CIRCLE_SHA1
-        |
-
+            echo $CIRCLE_SHA1 | docker login -u 1498oc -p Se3cret!Oc
+            docker build -t 1498oc/oc_lettings:$CIRCLE_SHA1 .
+            docker push 1498oc/oc_lettings:$CIRCLE_SHA1
 
 workflows:
   sample:
