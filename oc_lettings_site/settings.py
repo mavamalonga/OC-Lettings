@@ -118,3 +118,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Docker Hub env variables
+DOCKER_HUB_USERNAME = os.environ.get("DOCKER_HUB_USERNAME")
+DOCKER_HUB_PASS = os.environ.get("DOCKER_HUB_PASS")
