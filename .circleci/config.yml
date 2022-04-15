@@ -40,13 +40,14 @@ jobs:
             docker push ${DOCKERHUB_USER}/oc_lettings:$CIRCLE_SHA1
 
   deploy-on-heroku:
-    machine: true
+    executor: heroku/default
     steps:
       - checkout
+      - setup_remote_docker
+      - heroku/install
       - run:
-          name: Build and push Docker image to Heroku
+          name: Deploy app on heroku
           command: |
-            sudo curl https://cli-assets.heroku.com/install.sh | sh
             HEROKU_API_KEY=${HEROKU_API_NAME} heroku container:login
 
 
