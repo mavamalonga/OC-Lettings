@@ -45,7 +45,7 @@ workflows:
       - unittest-and-linter:
           filters:
             branches:
-              only: 
+              only:
                 - main
       - build-and-push-docker-image:
           context: my_var_dockerhub
