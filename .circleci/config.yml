@@ -39,6 +39,17 @@ jobs:
             docker build -t ${DOCKERHUB_USER}/oc_lettings:$CIRCLE_SHA1 .
             docker push ${DOCKERHUB_USER}/oc_lettings:$CIRCLE_SHA1
 
+  deploy-on-heroku:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Build and push Docker image to Heroku
+          command: |
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=${HEROKU_API_NAME} heroku container:login
+
+
 workflows:
   sample:
     jobs:
@@ -48,10 +59,17 @@ workflows:
               only:
                 - main
       - build-and-push-docker-image:
-          context: my_var_dockerhub
           requires:
             - unittest-and-linter
           filters:
             branches:
               only:
                 - main
+      - deploy-on-heroku:
+          requires:
+            - build-and-push-docker-image
+          filters:
+            branches:
+              only:
+                - main
+
