@@ -5,6 +5,7 @@ version: 2.1
 orbs:
   python: circleci/python@1.5.0
   docker: circleci/docker@2.0.3
+  heroku: circleci/heroku@1.2.6
 
 jobs:
   unittest-and-linter:
@@ -32,6 +33,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
+      - heroku/install
       - run:
           name: Build
           command: |
