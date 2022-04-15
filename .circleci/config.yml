@@ -49,7 +49,7 @@ jobs:
       - run:
           name: Deploy app on heroku
           command: |
-            HEROKU_API_KEY=${HEROKU_API_NAME} heroku apps
+            HEROKU_API_KEY=${HEROKU_API_NAME} heroku --version
 
 
 workflows:
