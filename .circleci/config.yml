@@ -33,7 +33,6 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - heroku/install
       - run:
           name: Build
           command: |
@@ -46,6 +45,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
+      - heroku/install
       - run:
           name: Deploy app on heroku
           command: |
