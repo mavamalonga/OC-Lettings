@@ -42,7 +42,11 @@ jobs:
 workflows:
   sample:
     jobs:
-      - unittest-and-linter
+      - unittest-and-linter:
+          filters:
+            branches:
+              only: 
+                - main
       - build-and-push-docker-image:
           context: my_var_dockerhub
           requires:
