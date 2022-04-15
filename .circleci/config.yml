@@ -34,16 +34,20 @@ jobs:
       - setup_remote_docker
       - run:
           name: Build
-          environment:
-            DOCKERHUB_USER: 1498oc
-            DOCKERHUB_PASS: Se3cret!Oc
           command: |
-            echo $CIRCLE_SHA1 | docker login -u 1498oc -p Se3cret!Oc
-            docker build -t 1498oc/oc_lettings:$CIRCLE_SHA1 .
-            docker push 1498oc/oc_lettings:$CIRCLE_SHA1
+            echo $CIRCLE_SHA1 | docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS}
+            docker build -t ${DOCKERHUB_USER}/oc_lettings:$CIRCLE_SHA1 .
+            docker push ${DOCKERHUB_USER}/oc_lettings:$CIRCLE_SHA1
 
 workflows:
   sample:
     jobs:
       - unittest-and-linter
-      - build-and-push-docker-image
+      - build-and-push-docker-image:
+          context: my_var_dockerhub
+          requires:
+            - unittest-and-linter
+          filters:
+            branches:
+              only:
+                - main
