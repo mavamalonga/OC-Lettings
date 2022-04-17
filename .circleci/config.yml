@@ -53,7 +53,6 @@ jobs:
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push web --app oc-lettings-treize
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release --app oc-lettings-treize web
 
-
 workflows:
   sample:
     jobs:
