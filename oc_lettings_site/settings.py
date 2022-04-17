@@ -4,7 +4,6 @@ import os
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-
 sentry_sdk.init(
     dsn="https://c2457acd009341f0b8bc09f40b5a3f37@o1207923.ingest.sentry.io/6341231",
     integrations=[DjangoIntegration()],
