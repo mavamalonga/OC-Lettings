@@ -49,7 +49,9 @@ jobs:
       - run:
           name: Deploy app on heroku
           command: |
-            heroku container:login
+            heroku container:push web --app oc-lettings-treize
+            heroku container:release --app oc-lettings-treize web
+
 
 workflows:
   sample:
