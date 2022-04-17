@@ -49,8 +49,8 @@ jobs:
       - run:
           name: Deploy app on heroku
           command: |
-            heroku container:push web --app oc-lettings-treize
-            heroku container:release --app oc-lettings-treize web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push web --app oc-lettings-treize
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release --app oc-lettings-treize web
 
 
 workflows:
