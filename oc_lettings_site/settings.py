@@ -9,7 +9,7 @@ dotenv.load_dotenv()
 dsn_key = os.getenv("dsn")
 print(dsn_key)
 sentry_sdk.init(
-    dsn = dsn_key,
+    dsn = str(dsn_key),
     integrations=[DjangoIntegration()],
 
     # Set traces_sample_rate to 1.0 to capture 100%

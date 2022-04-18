@@ -1,4 +1,5 @@
-## Résumé [![CircleCI](https://circleci.com/gh/mavamalonga/OC-Lettings/tree/main.svg?style=svg)](https://circleci.com/gh/mavamalonga/OC-Lettings/tree/main)
+## Résumé <br>
+[![CircleCI](https://circleci.com/gh/mavamalonga/OC-Lettings/tree/main.svg?style=svg)](https://circleci.com/gh/mavamalonga/OC-Lettings/tree/main)
 
 Site web d'Orange County Lettings
 
