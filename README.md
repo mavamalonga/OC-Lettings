@@ -1,7 +1,7 @@
-## Résumé <br>
-[![CircleCI](https://circleci.com/gh/mavamalonga/OC-Lettings/tree/main.svg?style=svg)](https://circleci.com/gh/mavamalonga/OC-Lettings/tree/main)
+## Résumé
 
-Site web d'Orange County Lettings
+Site web d'Orange County Lettings <br>
+[![CircleCI](https://circleci.com/gh/mavamalonga/OC-Lettings/tree/main.svg?style=svg)](https://circleci.com/gh/mavamalonga/OC-Lettings/tree/main)
 
 ## Développement local
 
