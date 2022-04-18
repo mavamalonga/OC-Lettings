@@ -70,8 +70,6 @@ workflows:
               only:
                 - QA
       - deploy-on-heroku:
-          requires:
-            - build-and-push-docker-image
           filters:
             branches:
               only:
