@@ -50,8 +50,9 @@ jobs:
           name: Deploy app on heroku
           command: |
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push web --app oc-lettings-treize
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release --app oc-lettings-treize web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push web --app $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set SECRET_KEY=$SECRET_KEY web -app $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release --app $HEROKU_APP_NAME web
 
 workflows:
   sample:

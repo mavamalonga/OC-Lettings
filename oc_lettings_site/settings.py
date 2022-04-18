@@ -4,6 +4,8 @@ import os
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
+dotenv.load_dotenv()
+
 sentry_sdk.init(
     dsn="https://c2457acd009341f0b8bc09f40b5a3f37@o1207923.ingest.sentry.io/6341231",
     integrations=[DjangoIntegration()],
@@ -26,10 +28,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG")
 
 ALLOWED_HOSTS = ['oc-lettings-treize.herokuapp.com', '127.0.0.1', 'localhost']
 
@@ -135,7 +137,3 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-dotenv.load_dotenv()
-DOCKER_HUB_USERNAME = os.getenv("DOCKER_HUB_USERNAME")
-DOCKER_HUB_PASS = os.getenv("DOCKER_HUB_PASS")
