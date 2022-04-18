@@ -58,11 +58,7 @@ jobs:
 workflows:
   sample:
     jobs:
-      - unittest-and-linter:
-          filters:
-            branches:
-              only:
-                - main
+      - unittest-and-linter
       - build-and-push-docker-image:
           requires:
             - unittest-and-linter
@@ -71,6 +67,8 @@ workflows:
               only:
                 - main
       - deploy-on-heroku:
+          requires:
+            - build-and-push-docker-image
           filters:
             branches:
               only:
