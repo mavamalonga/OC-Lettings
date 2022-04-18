@@ -62,14 +62,14 @@ workflows:
           filters:
             branches:
               only:
-                - QA
+                - main
       - build-and-push-docker-image:
           requires:
             - unittest-and-linter
           filters:
             branches:
               only:
-                - QA
+                - main
       - deploy-on-heroku:
           filters:
             branches:
