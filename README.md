@@ -123,7 +123,7 @@ Cette clé nous servira également pour la production, il sera enregistrée dans
 - Sélectionnez le project dans le dashboard CircleCi puis cliquez sur `Project settings > Environnement variables`
 - Enregistrez tout les variables environnements nécessaires lors de l'éxécution de notre pipeline CI/CD :
 <ul>
-  <li>DEBUG</li> # False
+  <li>DEBUG</li>
   <li>DOCKERHUB_PASS</li>
   <li>DOCKERHUB_USER</li>
   <li>HEROKU_API_KEY</li>
@@ -149,8 +149,8 @@ Vous pouvez éxécuter ces étapes avec une container docker en local.
 - Ouvrez Docker desktop, cliquez sur images puis lancez le container créee avec le bouton run
 - Allez dans containers/app et ouvrez le terminal CLI du container
 - Tapez les commandes suivantes:
-    `python manage.py test`
-    `flake8 --max-line-length=99`
+    `python manage.py test` <br>
+    `flake8 --max-line-length=99` <br>
 
 ### 2) build-and-push-docker-image
 CircleCi crée un container docker à partir du fichier Dockerfile du projet puis 
@@ -159,9 +159,9 @@ une fois l'image créee elle est publié sur le compte Docker Hub assigné.
 Pour faire la même chose en local.
 - Ouvrez un terminal et déplacez vous dans le répertoire racine contenant le fihcier Dockerfile
 - Tapez les commandes suivantes :
-    `docker login -u DOCKERHUB_USER -p DOCKERHUB_PASS`
-    `docker build -t DOCKERHUB_USER/oc_lettings:lastest .`
-    `docker push DOCKERHUB_USER/oc_lettings:lastest`
+    `docker login -u DOCKERHUB_USER -p DOCKERHUB_PASS` <br>
+    `docker build -t DOCKERHUB_USER/oc_lettings:lastest .` <br>
+    `docker push DOCKERHUB_USER/oc_lettings:lastest` <br>
 
 ### 3) deploy-on-heroku
 CircleCi fait la liaison avec le compte heroku grâce à l'API Key puis, procède à la configuration de l'environemment de production en mentionnant les valeurs des variables SECRET_KEY, HEROKU_APP_NAME pour identifier l'application, DEBUG, et dsn pour Sentry.
@@ -172,17 +172,17 @@ Tout d'abord veillez à enregistrer les variables SECRET_KEY, DEBUG, dsn dans le
 du projet puis, suivez les étapes suivantes:
 - Ouvrez un terminal et déplacez vous dans le répertoire racine contenant le fihcier Dockerfile
 - Tapez les commandes suivantes :
-    `heroku container:login`
-    `heroku container:push web --app NOM_APP_HEROKU`
-    `heroku container:release --app NOM_APP_HEROKU web`
+    `heroku container:login` 
+    `heroku container:push web --app NOM_APP_HEROKU` <br>
+    `heroku container:release --app NOM_APP_HEROKU web` <br>
 
 #### Lancer l'application en local
 Si vous souhaitez éxécuter votre application en local avec une image docker, suivez les étapes suivantes:
 - Pour récupérer une image existant depuis Docker Hub
-    `docker pull DOCKERHUB_USER/IMAGE_NAME:TAG_IMAGE`
-    `docker run --name IMAGE_NAME -d -p PORT:PORT DOCKERHUB_USER/IMAGE_NAME:TAG_IMAGE`
+    `docker pull DOCKERHUB_USER/IMAGE_NAME:TAG_IMAGE` <br>
+    `docker run --name IMAGE_NAME -d -p PORT:PORT DOCKERHUB_USER/IMAGE_NAME:TAG_IMAGE` <br>
 - Pour une image existant dans Docker desktop
-    `docker run --name IMAGE_NAME -d -p PORT:PORT DOCKERHUB_USER/IMAGE_NAME:TAG_IMAGE`
+    `docker run --name IMAGE_NAME -d -p PORT:PORT DOCKERHUB_USER/IMAGE_NAME:TAG_IMAGE` <br>
 
 ### Contact
 Pour tout autre question contactez-moi par mail : mavamalonga.alpha@gmail.com
