@@ -86,7 +86,7 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 - Compte Snetry
 - Compte Heroku 
 
-### Stockage de variables dans l'environnement local (Etape en Option pour l'éxécution en local)
+### Stockage de variables dans l'environnement local : Etape pour l'éxécution en local
 
 - Créer un fichier `.env` dans le répertoire racine du projet 
 
@@ -121,20 +121,11 @@ Cette clé nous servira également pour la production, il sera enregistrée dans
 - Liéez votre compte Github à votre compte CircleCi
 - Dans l'espace projects, sélectionnez le repository de notre projet en cliquant sur `Set up project`
 - Sélectionnez le project dans le dashboard CircleCi puis cliquez sur `Project settings > Environnement variables`
-- Enregistrez tout les variables environnements nécessaires lors de l'éxécution de notre pipeline CI/CD :
-<ul>
-  <li>DEBUG</li>
-  <li>DOCKERHUB_PASS</li>
-  <li>DOCKERHUB_USER</li>
-  <li>HEROKU_API_KEY</li>
-  <li>HEROKU_APP_NAME</li>
-  <li>SECRET_KEY</li>
-  <li>dsn</li>
-</ul>
+- Enregistrez les variables environnements nécessaires lors de l'éxécution du pipeline CI/CD : DEBUG, DOCKERHUB_PASS, DOCKERHUB_USER, HEROKU_API_KEY, HEROKU_APP_NAME, SECRET_KEY, dsn
 
 ## Exécution de l'intégration et déploiement continu
 
-Bravo ! Vous avez effectuez toutes les étapes nécessaire pour l'intégration et le déploiement continu de l'application. Après chaque commit faite sur la branche `main` du respository GitHub, CircleCi lancera les commandes pipeline CI/CD du fichier config.yml.
+Bravo ! Vous avez effectuez les étapes nécessaire pour l'intégration et le déploiement continu de l'application. Après chaque commit faite sur la branche `main` du respository GitHub, CircleCi lancera les commandes pipeline CI/CD du fichier config.yml.
 
 ### Les étapes du Pipeline CI/CD 
 
@@ -148,7 +139,7 @@ Vous pouvez éxécuter ces étapes avec une container docker en local.
 - Lancer la commande `docker build --tag app_name:latest .` 
 - Ouvrez Docker desktop, cliquez sur images puis lancez le container créee avec le bouton run
 - Allez dans containers/app et ouvrez le terminal CLI du container
-- Tapez les commandes suivantes:
+- Tapez les commandes suivantes: <br>
     `python manage.py test` <br>
     `flake8 --max-line-length=99` <br>
 
@@ -158,30 +149,31 @@ une fois l'image créee elle est publié sur le compte Docker Hub assigné.
 
 Pour faire la même chose en local.
 - Ouvrez un terminal et déplacez vous dans le répertoire racine contenant le fihcier Dockerfile
-- Tapez les commandes suivantes :
+- Tapez les commandes suivantes : <br>
     `docker login -u DOCKERHUB_USER -p DOCKERHUB_PASS` <br>
     `docker build -t DOCKERHUB_USER/oc_lettings:lastest .` <br>
     `docker push DOCKERHUB_USER/oc_lettings:lastest` <br>
 
 ### 3) deploy-on-heroku
-CircleCi fait la liaison avec le compte heroku grâce à l'API Key puis, procède à la configuration de l'environemment de production en mentionnant les valeurs des variables SECRET_KEY, HEROKU_APP_NAME pour identifier l'application, DEBUG, et dsn pour Sentry.
+CircleCi fait la liaison avec le compte heroku grâce à l'API Key puis, procède à la configuration de l'environemment de production en mentionnant les valeurs des variables SECRET_KEY, HEROKU_APP_NAME pour identifier l'application, DEBUG, et dsn pour Sentry. <br>
 Une fois la configuration finit, une image et créee à partir de Dockerfile puis deployé sur heroku en production.
+<br>
 
 Pour faire la même chose manuellement.
 Tout d'abord veillez à enregistrer les variables SECRET_KEY, DEBUG, dsn dans le fichier .env
 du projet puis, suivez les étapes suivantes:
 - Ouvrez un terminal et déplacez vous dans le répertoire racine contenant le fihcier Dockerfile
-- Tapez les commandes suivantes :
-    `heroku container:login` 
+- Tapez les commandes suivantes : <br>
+    `heroku container:login` <br>
     `heroku container:push web --app NOM_APP_HEROKU` <br>
     `heroku container:release --app NOM_APP_HEROKU web` <br>
 
 #### Lancer l'application en local
-Si vous souhaitez éxécuter votre application en local avec une image docker, suivez les étapes suivantes:
-- Pour récupérer une image existant depuis Docker Hub
+Si vous souhaitez éxécuter votre application en local avec une image docker, suivez les étapes suivantes: <br>
+- Pour récupérer une image existant depuis Docker Hub <br>
     `docker pull DOCKERHUB_USER/IMAGE_NAME:TAG_IMAGE` <br>
     `docker run --name IMAGE_NAME -d -p PORT:PORT DOCKERHUB_USER/IMAGE_NAME:TAG_IMAGE` <br>
-- Pour une image existant dans Docker desktop
+- Pour une image existant dans Docker desktop <b>
     `docker run --name IMAGE_NAME -d -p PORT:PORT DOCKERHUB_USER/IMAGE_NAME:TAG_IMAGE` <br>
 
 ### Contact
