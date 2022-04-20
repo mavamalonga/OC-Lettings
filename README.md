@@ -83,7 +83,7 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Compte Docker Hub 
 - Compte CircleCI
-- Compte Snetry
+- Compte Sentry
 - Compte Heroku 
 
 ### Stockage de variables dans l'environnement local : Etape pour l'éxécution en local
@@ -94,25 +94,25 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 ### Installation Docker 
 
-- Rendez-vous sur le site officiel de docker et télécharger l'application `Docker desktop`
-- Ouvrez l'application Docker desktop, cliquer sur sign in, connectez-vous à votre compte Docker Hub pour faire la liaison avec l'application Docker desktop en local
+- Rendez-vous sur le site officiel de docker et téléchargez l'application `Docker desktop`
+- Ouvrez l'application Docker desktop, cliquez sur sign-in, connectez-vous à votre compte Docker Hub pour faire la liaison avec l'application Docker desktop en local
 - Créer un fichier `.dockerignore` 
 
 `.dockerignore` vous permet d'exclure des fichiers du contexte comme un fichier .gitignore vous permet d'exclure des fichiers de votre référentiel git. Cela aide à rendre la construction plus rapide et plus légère en excluant du contexte les gros fichiers ou le référentiel qui ne sont pas utilisés dans la construction.
 
 ### Installation Sentry
 
-- Rendez-vous le site officiel de Sentry, ouvrez un compte personnel et créer un projet Python/Django pour notre application
-- Sentry genere un bout de code (SDK) en python à integrer dans le fichier settings du projet, récuperez seulement la clé dns 
-- Enregistrer la clé dsn pour une utilisation local dans .env ==> `dsn_key = "votre clé"`
+- Rendez-vous le site officiel de Sentry, ouvrez un compte personnel et créez un projet Python/Django pour l'application
+- Sentry génére un bout de code (SDK) en python à intégrer dans le fichier settings du projet, récuperez seulement la clé dns 
+- Enregistrer la clé dsn dans le fihcier .env ==> `dsn_key = "votre clé"` pour une utilisation local
 
-Cette clé nous servira également pour la production, il sera enregistrée dans votre compte circleCI.
+Cette clé nous servira également pour la production, elle sera enregistrée dans votre compte circleCI.
 
 ### Installation Heroku
 
 - Rendez-vous sur le site officiel de Heroku, ouvrez un compte personnel
-- Cliquez sur `New > Create new app` pour créer notre framework pour l'application
-- Ouvrez l'onglet settings, personnalisez `App name` et faitez la liaison avec le respository github de l'application
+- Cliquez sur `New > Create new app` pour créer le framework de l'application
+- Ouvrez l'onglet settings, personnalisez `App name` et faitez la liaison avec le respository GitHub de l'application
 - Dans l'onglet `deploy` cochez la case `Wait for CI to pass before deploy` et sélectionnez la branche à deployer
 
 ### Installation CircleCi
@@ -125,13 +125,13 @@ Cette clé nous servira également pour la production, il sera enregistrée dans
 
 ## Exécution de l'intégration et déploiement continu
 
-Bravo ! Vous avez effectuez les étapes nécessaire pour l'intégration et le déploiement continu de l'application. Après chaque commit faite sur la branche `main` du respository GitHub, CircleCi lancera les commandes pipeline CI/CD du fichier config.yml.
+Bravo! Vous avez effectué les étapes nécessaire pour l'intégration et le déploiement continu de l'application. Après chaque commit faite sur le repository GitHub, CircleCi lancera l'éxécution du fichier config.yml.
 
 ### Les étapes du Pipeline CI/CD 
 
 ### 1) unittest-and-linter 
-CircleCi créer un environnement virtuel, installe les dépendances du project et éxécute l'ensemble des tests unitaires de l'application puis, lance flake8 pour vérifier la confomité du code selon les règles PEP8 définit dans le fichier setup.cfg.
-Si les tests réussissez CircleCi passe au job suivant, sinon l'éxécution s'arrete puis CircleCi renvoie la cause de l'echec.
+CircleCi créer un environnement virtuel, installe les dépendances du project et éxécute l'ensemble des tests unitaires de l'application puis, CircleCI lance flake8 pour vérifier la confomité du code selon les règles PEP8 définit dans le fichier setup.cfg.
+Si les tests réussissent CircleCi passe au job suivant, sinon l'éxécution s'arrête puis CircleCi renvoie la cause de l'echec.
 Cette étape ne filtre pas les branches, elle sera éxécutée lors de chaque commit sur une branche du repository GitHub.
 
 Vous pouvez éxécuter ces étapes avec une container docker en local.
@@ -144,11 +144,12 @@ Vous pouvez éxécuter ces étapes avec une container docker en local.
     `flake8 --max-line-length=99` <br>
 
 ### 2) build-and-push-docker-image
-CircleCi crée un container docker à partir du fichier Dockerfile du projet puis 
-une fois l'image créee elle est publié sur le compte Docker Hub assigné.
+CircleCi crée un container docker à partir du fichier Dockerfile du projet puis, 
+une fois l'image créee elle est publiée sur le compte Docker Hub assigné.
+Cette étape s'éxécute uniquement pour les commits faite sur la branche `main` du repository GitHub.
 
 Pour faire la même chose en local.
-- Ouvrez un terminal et déplacez vous dans le répertoire racine contenant le fihcier Dockerfile
+- Ouvrez un terminal et déplacez vous dans le répertoire racine contenant le fichier Dockerfile
 - Tapez les commandes suivantes : <br>
     `docker login -u DOCKERHUB_USER -p DOCKERHUB_PASS` <br>
     `docker build -t DOCKERHUB_USER/oc_lettings:lastest .` <br>
@@ -156,13 +157,13 @@ Pour faire la même chose en local.
 
 ### 3) deploy-on-heroku
 CircleCi fait la liaison avec le compte heroku grâce à l'API Key puis, procède à la configuration de l'environemment de production en mentionnant les valeurs des variables SECRET_KEY, HEROKU_APP_NAME pour identifier l'application, DEBUG, et dsn pour Sentry. <br>
-Une fois la configuration finit, une image et créee à partir de Dockerfile puis deployé sur heroku en production.
+Une fois la configuration finit, une image et créee à partir de Dockerfile puis deployée sur heroku en production.<br>Cette étape s'éxécute uniquement pour les commits faite sur la branche `main` du repository GitHub.
 <br>
 
 Pour faire la même chose manuellement.
 Tout d'abord veillez à enregistrer les variables SECRET_KEY, DEBUG, dsn dans le fichier .env
 du projet puis, suivez les étapes suivantes:
-- Ouvrez un terminal et déplacez vous dans le répertoire racine contenant le fihcier Dockerfile
+- Ouvrez un terminal et déplacez vous dans le répertoire racine contenant le fichier Dockerfile
 - Tapez les commandes suivantes : <br>
     `heroku container:login` <br>
     `heroku container:push web --app NOM_APP_HEROKU` <br>
@@ -173,7 +174,7 @@ Si vous souhaitez éxécuter votre application en local avec une image docker, s
 - Pour récupérer une image existant depuis Docker Hub <br>
     `docker pull DOCKERHUB_USER/IMAGE_NAME:TAG_IMAGE` <br>
     `docker run --name IMAGE_NAME -d -p PORT:PORT DOCKERHUB_USER/IMAGE_NAME:TAG_IMAGE` <br>
-- Pour une image existant dans Docker desktop <b>
+- Pour une image existante dans Docker desktop <br>
     `docker run --name IMAGE_NAME -d -p PORT:PORT DOCKERHUB_USER/IMAGE_NAME:TAG_IMAGE` <br>
 
 ### Contact
