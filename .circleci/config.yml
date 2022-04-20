@@ -52,7 +52,6 @@ jobs:
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set SECRET_KEY=${SECRET_KEY} --app ${HEROKU_APP_NAME}
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set DEBUG=${DEBUG} --app ${HEROKU_APP_NAME}
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set dsn=${dsn} --app ${HEROKU_APP_NAME}
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push web --app ${HEROKU_APP_NAME}
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release web --app ${HEROKU_APP_NAME}
 

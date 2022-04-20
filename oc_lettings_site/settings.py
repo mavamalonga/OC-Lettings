@@ -6,7 +6,7 @@ from sentry_sdk.integrations.django import DjangoIntegration
 
 dotenv.load_dotenv()
 
-dsn_key = os.getenv("dsn_key")
+dsn_key = os.getenv("SENTRY_DSN")
 sentry_sdk.init(
     dsn=dsn_key,
     integrations=[DjangoIntegration()],
