@@ -22,8 +22,8 @@ def get_secret_key():
 
 def get_debug():
     if os.getenv("DEBUG") is not None:
-        return os.getenv("DEBUG")
-    return 1
+        return int(os.getenv("DEBUG"))
+    return 0
 
 
 sentry_sdk.init(
@@ -51,7 +51,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = get_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = debug()
+DEBUG = get_debug()
 
 ALLOWED_HOSTS = ['oc-lettings-treize.herokuapp.com', '127.0.0.1', 'localhost']
 
