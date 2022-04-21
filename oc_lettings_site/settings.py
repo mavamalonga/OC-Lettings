@@ -7,24 +7,24 @@ import secrets
 
 dotenv.load_dotenv()
 
+
 def get_sentry_dsn():
-    if os.getenv("SENTRY_DSN") != None:
+    if os.getenv("SENTRY_DSN") is not None:
         return os.getenv("SENTRY_DSN")
     return None
 
+
 def get_secret_key():
-    if os.getenv("SECRET_KEY") != None:
+    if os.getenv("SECRET_KEY") is not None:
         return os.getenv("SECRET_KEY")
     return secrets.token_urlsafe(50)
 
+
 def get_debug():
-    if os.getenv("DEBUG") != None:
+    if os.getenv("DEBUG") is not None:
         return os.getenv("DEBUG")
     return False
 
-
-print(get_sentry_dsn())
-print(get_secret_key())
 
 sentry_sdk.init(
     dsn=get_sentry_dsn(),
