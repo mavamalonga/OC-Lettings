@@ -3,12 +3,25 @@ import dotenv
 import os
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
+import secrets
 
 dotenv.load_dotenv()
 
-dsn_key = os.getenv("SENTRY_DSN")
+def get_sentry_dsn():
+    if os.getenv("SENTRY_DSN") != None:
+        return os.getenv("SENTRY_DSN")
+    return None
+
+def get_secret_key():
+    if os.getenv("SECRET_KEY") != None:
+        return os.getenv("SECRET_KEY")
+    return secrets.token_urlsafe(50)
+
+print(get_sentry_dsn())
+print(get_secret_key())
+
 sentry_sdk.init(
-    dsn=dsn_key,
+    dsn=get_sentry_dsn(),
     integrations=[DjangoIntegration()],
 
     # Set traces_sample_rate to 1.0 to capture 100%
@@ -29,7 +42,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = get_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG")
