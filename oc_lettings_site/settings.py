@@ -17,6 +17,12 @@ def get_secret_key():
         return os.getenv("SECRET_KEY")
     return secrets.token_urlsafe(50)
 
+def get_debug():
+    if os.getenv("DEBUG") != None:
+        return os.getenv("DEBUG")
+    return False
+
+
 print(get_sentry_dsn())
 print(get_secret_key())
 
@@ -45,7 +51,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = get_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG")
+DEBUG = get_debug()
 
 ALLOWED_HOSTS = ['oc-lettings-treize.herokuapp.com', '127.0.0.1', 'localhost']
 
